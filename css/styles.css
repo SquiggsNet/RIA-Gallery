@@ -1,32 +1,19 @@
-.mBottom{
-	margin-bottom: 20px;
-}
-
-.mRight{
-	margin-right: 10px;
-}
-
 #app {
     min-width: 600px;
 }
 
-#colTitle {
-    width: 200px;
+img{
+    height: 220px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
 }
 
-#colDate {
-    width: 150px;
+.btn{
+    width: 100px;
 }
 
-#colAction {
-    width: 110px;
-}
-
-#bodyInput{
-	height: 200px;
-}
-
-th, h1{
+th, h1, h3{
 	color: #428bca;
 }
 

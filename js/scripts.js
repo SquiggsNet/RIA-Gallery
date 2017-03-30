@@ -1,103 +1,56 @@
 $(document).ready(function() {
-	var selectedId = $("#selectedId");
-	var selectedSort = $("#selectedSort");
-	var selectedOrder = $("#selectedOrder");
-	selectedId.hide();
-	
-	selectedSort.hide();
-	selectedOrder.hide();
 	performAjaxAll();
 	
-	$("#new").click(function() {
-		$("#titleInput").val("");
-		$("#bodyInput").val("");
-		selectedId.html("");
-	});
-	
-	$("#submit").click(function() {
-		var title = $("#titleInput")[0].value;
-		var bodyInput = $("#bodyInput").val().split('\n');
-		if (title  === '') {
-        alert('Title is empty.');
-        return false;
-		}
-		if (bodyInput[0]  === '') {
-        alert("Post Body's first line is empty.");
-        return false;
-    }
-		var body = "";
-		$.each(bodyInput, function(index, item) {
-			body += item;
-			if (index+1 != bodyInput.length){
-				body += "\\n";
+	$("#addNew").click(function() {
+		$("#info").html("Add New Image"+
+			"<form action='' method='post'>"+
+			"<label>Title:</label>"+
+			"<input id='noteTitleInput' name='title' type='text' placeholder='Image Title'>"+
+			"<label>URL:</label>"+
+			"<input id='noteUrlInput' name='url' type='text' placeholder='Image Url'>"+
+			"<label>Description:</label>"+
+			"<input id='noteDescriptionInput' name='description' type='text' placeholder='Image Description'>"+
+			"</form>");
+		$("#info").dialog({
+			resizable: false,
+			height: "auto",
+			width: 400,
+			modal: true,
+			buttons: {
+				"Submit": function() {
+					var newTitle = " "+$("#noteTitleInput").val();
+					var newUrl = " "+$("#noteUrlInput").val();
+					var newDescription = " "+$("#noteDescriptionInput").val();
+					if (newTitle  === '') {
+						alert('Title is empty.');
+						return false;
+					}
+					if (newUrl  === '') {
+						alert('URL is empty.');
+						return false;
+					}
+					if (newDescription  === '') {
+						alert('Description is empty.');
+						return false;
+					}
+
+					var saveData = '{'
+							+'"title": "'+newTitle+'",'
+							+'"url": "'+newUrl+'",'
+							+'"description": "'+newDescription+'"}';
+					performAjaxSaveNew(saveData);
+					$( this ).dialog( "close" );
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
 			}
-		});
-		var date = new Date();
-		var id = selectedId[0].innerHTML;
-		var saveData = "";
-		if(id != ""){
-			saveData = '{'
-				+'"title": "'+title+'",'
-				+'"body": "'+body+'",'
-				+'"date": "'+date+'",'
-				+'"id": "'+id+'"}';
-			performAjaxSaveEdit(saveData, id);
-		}else{
-			saveData = '{'
-				+'"title": "'+title+'",'
-				+'"body": "'+body+'",'
-				+'"date": "'+date+'"}';
-			performAjaxSaveNew(saveData);
-		}		
-	});
-	
-	$("#colTitle").click(function() {
-		if(selectedSort[0].innerHTML != "title" || (selectedSort[0].innerHTML === "title" && selectedOrder[0].innerHTML === "DESC")){
-			selectedSort.html("title");
-			selectedOrder.html("ASC");
-		}else{
-			selectedOrder.html("DESC");
-		}
-		performAjaxAll();
-	});
-	$("th").hover(
-		function() {
-			$(this).animate({backgroundColor: "#428bca", color: "#f9f9f9"}, 'slow');
-		}, function() {
-			$(this).animate({backgroundColor:"#f9f9f9", color: "#428bca"},'slow');
-	});
-	
-	$("#colBody").click(function() {
-		if(selectedSort[0].innerHTML != "body" || (selectedSort[0].innerHTML === "body" && selectedOrder[0].innerHTML === "DESC")){
-			selectedSort.html("body");
-			selectedOrder.html("ASC");
-		}else{
-			selectedOrder.html("DESC");
-		}
-		performAjaxAll();
-	});
-	
-	$("#colDate").click(function() {
-		if(selectedSort[0].innerHTML != "date" || (selectedSort[0].innerHTML === "date" && selectedOrder[0].innerHTML === "DESC")){
-			selectedSort.html("date");
-			selectedOrder.html("ASC");
-		}else{
-			selectedOrder.html("DESC");
-		}
-		performAjaxAll();
+		});	
 	});
 });
 
 function performAjaxAll(){
-	var sort = $("#selectedSort")[0].innerHTML;
-	var order = $("#selectedOrder")[0].innerHTML;
-	var getUrl = "";
-	
-	if (sort != "" && order != ""){
-		getUrl = "http://localhost:3000/posts?_sort="+sort+"&_order="+order;
-	}else{
-		getUrl = "http://localhost:3000/posts";
-	}
+	var getUrl = "http://localhost:3000/images";
 	
 	$.ajax({
 		url: getUrl,
@@ -114,14 +67,13 @@ function performAjaxAll(){
 
 function performAjaxSaveNew(saveData){
 	$.ajax({
-		url: "http://localhost:3000/posts/",
+		url: "http://localhost:3000/images",
 		method: "POST",
 		headers: {
 		"content-type": "application/json",
 		},
 		data: saveData,
 		success: function(result){
-			$("#selectedId").html(result.id);
 			performAjaxAll();
 		},
 		error: function(err){
@@ -131,9 +83,23 @@ function performAjaxSaveNew(saveData){
 	});
 }
 
+function performAjaxShowEdit(id){
+	$.ajax({
+		url: "http://localhost:3000/images/"+id,
+		method: "GET",
+		success: function(result){
+			displayEdits(result);
+		},
+		error: function(err){
+			$("#info").html("Error calling Edit Information");
+			$( "#info" ).dialog();	
+		}
+	});
+}
+
 function performAjaxSaveEdit(saveData, id){
 	$.ajax({
-		url: "http://localhost:3000/posts/"+id,
+		url: "http://localhost:3000/images/"+id,
 		method: "PUT",
 		headers: {
 		"content-type": "application/json",
@@ -151,7 +117,7 @@ function performAjaxSaveEdit(saveData, id){
 
 function performAjaxDelete(id){
 	$.ajax({
-		url: "http://localhost:3000/posts/"+id,
+		url: "http://localhost:3000/images/"+id,
 		method: "DELETE",
 		success: function(result){
 			performAjaxAll();
@@ -163,50 +129,34 @@ function performAjaxDelete(id){
 	});
 }
 
-function performAjaxShowEdit(id){
-	$.ajax({
-		url: "http://localhost:3000/posts/"+id,
-		method: "GET",
-		success: function(result){
-			displayEdits(result);
-		},
-		error: function(err){
-			$("#info").html("Error calling Edit Information");
-			$( "#info" ).dialog();	
-		}
-	});
-}
-
 function displayAll(data){
 	var list = $("#list");
-	var monthNames = ["January", "February", "March", "April", "May", "June",
-	  "July", "August", "September", "October", "November", "December"
-	];
+
 	list.empty();
 	if (data != null){
 		for (var i=0; i<data.length; i++){
 			
-			var date = new Date(data[i].date);
-			console.log(date);
-			var postDate = monthNames[date.getMonth()] + " "+date.getDate() + " " +date.getFullYear();
-			//postDate.append();
-			list.append('<tr id="'+data[i].id+'"><td>'+data[i].title+'</td><td>'+data[i].body+'</td>'
-			+'<td>'+postDate+'</td><td>'
-			+'<button type="button" class="btn btn-warning mRight edit" ><span class="glyphicon glyphicon-pencil"></span></button>'
-			+'<button type="button" class="btn btn-danger delete" ><span class="glyphicon glyphicon-trash"></span></button></td>');
+			list.append(
+				'<div class="col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
+				+'<img src="'+data[i].url+'" alt="'+data[i].title+'">'
+				+'<div><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span> Edit</button>'
+				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span> Delete</button><div>'
+				+'<p>'+data[i].description+'</p>'
+				+'</div>'
+			);
 		}
 	}
 	
 	$(".delete").click(function(){
 		var id = this.parentNode.parentNode.id;
-		$("#info").html("Are you sure you would like to delete this blog post? It cannot be retreived!");
+		$("#info").html("Are you sure you would like to delete this image?");
 		$("#info").dialog({
 			resizable: false,
 			height: "auto",
 			width: 400,
 			modal: true,
 			buttons: {
-				"Delete Post": function() {
+				"Delete Image": function() {
 					performAjaxDelete(id);
 					$( this ).dialog( "close" );
 				},
@@ -219,23 +169,61 @@ function displayAll(data){
 	
 	$(".edit").click(function(){
 		var id = this.parentNode.parentNode.id;
-		$("#selectedId").html(id);
 		performAjaxShowEdit(id);
 	});
-	var selId = $("#selectedId")[0].innerHTML;
-	// if (selId != ""){
-	// // $("#"+selId).animate({backgroundColor: "#F89406", color: "#f9f9f9"}, 'slow');
-	// }
 }
 
 function displayEdits(data){
-	var titleInput = $("#titleInput");
-	var bodyInput = $("#bodyInput");
 	var tite = data.title;
-	titleInput.val("");
-	bodyInput.val("");
-	titleInput.val(data.title);
-	bodyInput.val(data.body);
+	var url = data.url;
+	var description = data.description;
+	var id = data.id;
+
+	$("#info").html("Update Image"+
+		"<form action='' method='post'>"+
+		"<label>Title:</label>"+
+		"<input id='noteTitleInput' name='title' type='text' value='"+tite+"'>"+
+		"<label>URL:</label>"+
+		"<input id='noteUrlInput' name='url' type='text' value='"+url+"'>"+
+		"<label>Description:</label>"+
+		"<input id='noteDescriptionInput' name='description' type='text' value='"+description+"'>"+
+		"</form>");
+	$("#info").dialog({
+		resizable: false,
+		height: "auto",
+		width: 400,
+		modal: true,
+		buttons: {
+			"Submit": function() {
+				var newTitle = $("#noteTitleInput").val();
+				var newUrl = $("#noteUrlInput").val();
+				var newDescription = $("#noteDescriptionInput").val();
+				if (newTitle  === '') {
+					alert('Title is empty.');
+					return false;
+				}
+				if (newUrl  === '') {
+					alert('URL is empty.');
+					return false;
+				}
+				if (newDescription  === '') {
+					alert('Description is empty.');
+					return false;
+				}
+
+				var saveData = '{'
+						+'"title": "'+newTitle+'",'
+						+'"url": "'+newUrl+'",'
+						+'"description": "'+newDescription+'",'
+						+'"id": "'+id+'"}';
+				performAjaxSaveEdit(saveData, id);
+				$( this ).dialog( "close" );
+			},
+			Cancel: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	});	
 }
 
 $(document).ajaxStart(function(){

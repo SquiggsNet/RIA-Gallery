@@ -1,40 +1,22 @@
 {
-  "posts": [
+  "images": [
     {
-      "title": "First Post",
-      "body": "edited blog post",
-      "date": "Wed Mar 29 2017 10:53:54 GMT-0300 (Atlantic Daylight Time)",
+      "title": "Logo 1",
+      "url": "http://logos.textgiraffe.com/logos/logo-name/Ria-designstyle-love-panda-m.png",
+      "description": "Logo displayed with some cute panda's.",
       "id": 1
     },
     {
-      "title": "Second post",
-      "body": "To fill out the application",
-      "date": "Mon Mar 20 2017 19:50:31 GMT-0300 (Atlantic Daylight Time)",
+      "title": "Logo 2",
+      "url": "http://logos.textgiraffe.com/logos/logo-name/Ria-designstyle-premium-m.png",
+      "description": "Logo displayed on an icecream cone.",
       "id": 2
     },
     {
-      "title": "Another Post",
-      "body": "Does the properly formatted Date get saved in the Database?\ndo we format before saving?\nor after calling the record before displaying?",
-      "date": "Mon Mar 20 2017 19:52:16 GMT-0300 (Atlantic Daylight Time)",
+      "title": " RIA WARS",
+      "url": " https://ontechnologyandmedia.files.wordpress.com/2008/11/ria-wars-w520.jpg?w=750&h=407",
+      "description": " image of ria... star wars style!",
       "id": 3
-    },
-    {
-      "title": "Edit",
-      "body": "Checking the proper population of edits",
-      "date": "Mon Mar 20 2017 19:53:19 GMT-0300 (Atlantic Daylight Time)",
-      "id": 4
-    },
-    {
-      "title": "Check1",
-      "body": "this is a test.\nit is only a test",
-      "date": "Mon Mar 20 2017 20:09:18 GMT-0300 (Atlantic Daylight Time)",
-      "id": 5
-    },
-    {
-      "title": "Hello",
-      "body": "Is it me you're looking for??",
-      "date": "Mon Mar 27 2017 12:53:47 GMT-0300 (Atlantic Daylight Time)",
-      "id": 6
     }
   ]
 }
