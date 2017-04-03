@@ -133,22 +133,19 @@ function displayAll(data){
 	var list = $("#list");
 
 	list.empty();
-	if (data != null){
+	if (data !== null){
 		for (var i=0; i<data.length; i++){
 
 			list.append(
-<<<<<<< HEAD
 				'<div class="col-xs-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
 				+'<img class="center-block" src="'+data[i].url+'" alt="'+data[i].title+'">'
 				+'<div><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span></button>'
 				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span></button><div>'
-=======
-				'<div class="col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
+				+'<div class="col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
 //				+'<img src="'+data[i].url+'" alt="'+data[i].title+'">'
 				+'<img src="'+data[i].url+'" alt="'+data[i].title+'" onclick="thumbclicked(this)" >'
 				+'<div><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span> Edit</button>'
 				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span> Delete</button><div>'
->>>>>>> origin/master
 				+'<p>'+data[i].description+'</p>'
 				+'</div>'
 			);
