@@ -1,9 +1,10 @@
 $(document).ready(function() {
 	performAjaxAll();
-
+	
 	$("#addNew").click(function() {
-		$("#info").html("Add New Image"+
-			"<form action='' method='post'>"+
+		$("#info").html(
+			"<form id='styleForm' action='' method='post'>"+
+            "<h2>Add New Image</h2>"+
 			"<label>Title:</label>"+
 			"<input id='noteTitleInput' name='title' type='text' placeholder='Image Title'>"+
 			"<label>URL:</label>"+
@@ -45,13 +46,13 @@ $(document).ready(function() {
 					$( this ).dialog( "close" );
 				}
 			}
-		});
+		});	
 	});
 });
 
 function performAjaxAll(){
 	var getUrl = "http://localhost:3000/images";
-
+	
 	$.ajax({
 		url: getUrl,
 		method: "GET",
@@ -60,7 +61,7 @@ function performAjaxAll(){
 		},
 		error: function(err){
 			$("#info").html("Error calling API");
-			$( "#info" ).dialog();
+			$( "#info" ).dialog();	
 		}
 	});
 }
@@ -78,7 +79,7 @@ function performAjaxSaveNew(saveData){
 		},
 		error: function(err){
 			$("#info").html("Error saving post to API");
-			$( "#info" ).dialog();
+			$( "#info" ).dialog();	
 		}
 	});
 }
@@ -92,7 +93,7 @@ function performAjaxShowEdit(id){
 		},
 		error: function(err){
 			$("#info").html("Error calling Edit Information");
-			$( "#info" ).dialog();
+			$( "#info" ).dialog();	
 		}
 	});
 }
@@ -110,7 +111,7 @@ function performAjaxSaveEdit(saveData, id){
 		},
 		error: function(err){
 			$("#info").html("Error saving post to API");
-			$( "#info" ).dialog();
+			$( "#info" ).dialog();	
 		}
 	});
 }
@@ -124,7 +125,7 @@ function performAjaxDelete(id){
 		},
 		error: function(err){
 			$("#info").html("Error deleting post");
-			$( "#info" ).dialog();
+			$( "#info" ).dialog();	
 		}
 	});
 }
@@ -135,29 +136,25 @@ function displayAll(data){
 	list.empty();
 	if (data != null){
 		for (var i=0; i<data.length; i++){
-
+			
 			list.append(
-<<<<<<< HEAD
-				'<div class="col-xs-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
-				+'<img class="center-block" src="'+data[i].url+'" alt="'+data[i].title+'">'
-				+'<div><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span></button>'
-				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span></button><div>'
-=======
 				'<div class="col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
-//				+'<img src="'+data[i].url+'" alt="'+data[i].title+'">'
-				+'<img src="'+data[i].url+'" alt="'+data[i].title+'" onclick="thumbclicked(this)" >'
+				+'<img src="'+data[i].url+'" alt="'+data[i].title+'">'
 				+'<div><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span> Edit</button>'
 				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span> Delete</button><div>'
->>>>>>> origin/master
 				+'<p>'+data[i].description+'</p>'
 				+'</div>'
 			);
 		}
 	}
-
+	
 	$(".delete").click(function(){
 		var id = this.parentNode.parentNode.id;
-		$("#info").html("Are you sure you would like to delete this image?");
+		$("#info").html("<div id ='del'>"+
+                        "<p>Not so fast!</p>"+
+                        "<p>Really delete this image?</p>"+
+                        "</div>"
+        );
 		$("#info").dialog({
 			resizable: false,
 			height: "auto",
@@ -174,7 +171,7 @@ function displayAll(data){
 			}
 		});
 	});
-
+	
 	$(".edit").click(function(){
 		var id = this.parentNode.parentNode.id;
 		performAjaxShowEdit(id);
@@ -187,8 +184,9 @@ function displayEdits(data){
 	var description = data.description;
 	var id = data.id;
 
-	$("#info").html("Update Image"+
-		"<form action='' method='post'>"+
+	$("#info").html(
+		"<form id='styleForm' action='' method='post'>"+
+        "<h2>Update Image</h2>"+
 		"<label>Title:</label>"+
 		"<input id='noteTitleInput' name='title' type='text' value='"+tite+"'>"+
 		"<label>URL:</label>"+
@@ -231,7 +229,7 @@ function displayEdits(data){
 				$( this ).dialog( "close" );
 			}
 		}
-	});
+	});	
 }
 
 $(document).ajaxStart(function(){
