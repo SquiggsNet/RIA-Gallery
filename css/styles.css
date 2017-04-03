@@ -1,20 +1,49 @@
+html, body{
+  background-color: #428bca;
+}
+
 #app {
-    min-width: 600px;
+  background-color: white;
+  width: 95%;
+  height: 100%;
+  max-width: 1200px;
+  min-width: 600px;
 }
 
 img{
-    height: 220px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto 
+  object-fit: cover;
+  width:240px;
+  height:240px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+img:hover{
+  opacity: 0.8;
 }
 
 .btn{
-    width: 100px;
+    width: 50%;
+    margin-bottom: 12px;
+    border-radius: 0;
 }
 
-th, h1, h3{
+#buttonContainer{
+  display: table;
+}
+
+#addNew{
+  display: table-cell;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+th, h1, h3, h4{
 	color: #428bca;
+}
+
+#list{
+  color: #222;
 }
 
 #loader {

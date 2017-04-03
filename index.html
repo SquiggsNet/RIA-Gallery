@@ -2,7 +2,8 @@
 <html>
     <head>
 		<title>Gallery Application</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<link rel="stylesheet" href="css/styles.css">
@@ -11,13 +12,35 @@
 		<div id="loader"></div>
 		<span id="selectedId"></span>
 		<div class="container" id="app">
-			<h1>Gallery Application</h1>
-			<input type="button" class="mBottom btn btn-primary pull-right" id="addNew" value="Add New">
-			<hr>
-			<div id="list">
-			</div>
+      <div class="row">
+        <div class="col-xs-8">
+            <h1>Gallery Application</h1>
+        </div>
+
+
+      </div>
+
+      <hr/>
+
+      <div class="row">
+        <div class="col-xs-8">
+          <h4>A simple image gallery using images sourced from the internet</h4>
+        </div>
+        <div class="col-xs-4" id="buttonContainer">
+      			<input type="button" class="mBottom btn btn-primary pull-right align-middle" id="addNew" value="Add New"/>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row">
+        <div class="col-xs-12" id="list">
+
+  			</div>
+      </div>
+
 		</div>
-		
+
 		<label id="info"></label>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

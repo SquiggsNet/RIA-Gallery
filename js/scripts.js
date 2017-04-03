@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	performAjaxAll();
-	
+
 	$("#addNew").click(function() {
 		$("#info").html("Add New Image"+
 			"<form action='' method='post'>"+
@@ -45,13 +45,13 @@ $(document).ready(function() {
 					$( this ).dialog( "close" );
 				}
 			}
-		});	
+		});
 	});
 });
 
 function performAjaxAll(){
 	var getUrl = "http://localhost:3000/images";
-	
+
 	$.ajax({
 		url: getUrl,
 		method: "GET",
@@ -60,7 +60,7 @@ function performAjaxAll(){
 		},
 		error: function(err){
 			$("#info").html("Error calling API");
-			$( "#info" ).dialog();	
+			$( "#info" ).dialog();
 		}
 	});
 }
@@ -78,7 +78,7 @@ function performAjaxSaveNew(saveData){
 		},
 		error: function(err){
 			$("#info").html("Error saving post to API");
-			$( "#info" ).dialog();	
+			$( "#info" ).dialog();
 		}
 	});
 }
@@ -92,7 +92,7 @@ function performAjaxShowEdit(id){
 		},
 		error: function(err){
 			$("#info").html("Error calling Edit Information");
-			$( "#info" ).dialog();	
+			$( "#info" ).dialog();
 		}
 	});
 }
@@ -110,7 +110,7 @@ function performAjaxSaveEdit(saveData, id){
 		},
 		error: function(err){
 			$("#info").html("Error saving post to API");
-			$( "#info" ).dialog();	
+			$( "#info" ).dialog();
 		}
 	});
 }
@@ -124,7 +124,7 @@ function performAjaxDelete(id){
 		},
 		error: function(err){
 			$("#info").html("Error deleting post");
-			$( "#info" ).dialog();	
+			$( "#info" ).dialog();
 		}
 	});
 }
@@ -135,18 +135,18 @@ function displayAll(data){
 	list.empty();
 	if (data != null){
 		for (var i=0; i<data.length; i++){
-			
+
 			list.append(
-				'<div class="col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
-				+'<img src="'+data[i].url+'" alt="'+data[i].title+'">'
-				+'<div><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span> Edit</button>'
-				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span> Delete</button><div>'
+				'<div class="col-xs-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
+				+'<img class="center-block" src="'+data[i].url+'" alt="'+data[i].title+'">'
+				+'<div><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span></button>'
+				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span></button><div>'
 				+'<p>'+data[i].description+'</p>'
 				+'</div>'
 			);
 		}
 	}
-	
+
 	$(".delete").click(function(){
 		var id = this.parentNode.parentNode.id;
 		$("#info").html("Are you sure you would like to delete this image?");
@@ -166,7 +166,7 @@ function displayAll(data){
 			}
 		});
 	});
-	
+
 	$(".edit").click(function(){
 		var id = this.parentNode.parentNode.id;
 		performAjaxShowEdit(id);
@@ -223,7 +223,7 @@ function displayEdits(data){
 				$( this ).dialog( "close" );
 			}
 		}
-	});	
+	});
 }
 
 $(document).ajaxStart(function(){
