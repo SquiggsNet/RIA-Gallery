@@ -1,0 +1,102 @@
+#app {
+    min-width: 600px;
+}
+
+img{
+    height: 220px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+
+.btn{
+    width: 100px;
+}
+
+th, h1, h3{
+	color: #428bca;
+}
+
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  display: none;
+}
+#styleForm{
+    background-color: lightgrey;
+    padding:20px;
+    border:1px solid black;
+    border-radius: 2px;
+    box-shadow: 2px 2px 2px black;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+label {
+    font-size: 15px;
+    font-style:italic;
+}
+#noteTitleInput, #noteUrlInput, #noteDescriptionInput{
+    box-shadow: 1px 1px 1px dimgrey;
+}
+#noteTitleInput:hover, #noteUrlInput:hover, #noteDescriptionInput:hover{
+    box-shadow: 2px 2px 2px dimgrey;
+}
+h2{
+    text-align: center;
+    font-size: 35px;
+    text-shadow: 2px 2px 2px dimgrey;
+}
+#del {
+    background-color: lightgrey;
+    padding:20px;
+    border:1px solid black;
+    border-radius: 2px;
+    box-shadow: 2px 2px 2px black;
+    text-align:center;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
