@@ -6,23 +6,58 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<link rel="stylesheet" href="css/styles.css">
+		<link rel="stylesheet" href="css/sideScroll.css">
 	</head>
 	<body>
 		<div id="loader"></div>
 		<span id="selectedId"></span>
 		<div class="container" id="app">
 			<h1>Gallery Application</h1>
-			<input type="button" class="mBottom btn btn-primary pull-right" id="addNew" value="Add New">
 			<hr>
-			<div id="list">
+			<input type="button" class="mBottom btn btn-primary pull-right" id="addNew" value="Add New">
 			</div>
 		</div>
 		
+		<div class="wrap">
+
+		<div class="scrollbar">
+			<div class="handle">
+			<div class="mousearea"></div>
+			</div>
+		</div>
+
+		<div class="frame" id="basic">
+			<ul class="clearfix">
+				<div id="list">
+			</ul>
+		</div>
+
+		<ul class="pages"></ul>
+
+		<div class="controls center">
+			<div class="btn-group">
+			<button class="btn toStart">toStart</button>
+			<button class="btn toCenter">toCenter</button>
+			<button class="btn toEnd">toEnd</button>
+			</div>
+
+			<div class="btn-group">
+			<button class="btn add"><i class="icon-plus-sign"></i></button>
+			<button class="btn remove"><i class="icon-minus-sign"></i></button>
+			</div>
+		</div>
+		</div>
+
 		<label id="info"></label>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 		<script src="js/scripts.js"></script>
+		<script src="js/sideScroll.js"></script>
+
+		<script src="http://darsa.in/sly/js/vendor/plugins.js"></script>
+		<script src="http://darsa.in/sly/js/ospb.js"></script>
+		<script src="http://darsa.in/sly/js/sly.min.js"></script>
+		<script src="http://darsa.in/sly/js/main.js"></script>
 	</body>
 <html>

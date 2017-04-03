@@ -137,12 +137,12 @@ function displayAll(data){
 		for (var i=0; i<data.length; i++){
 			
 			list.append(
-				'<div class="col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
+				'<li><div class="col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
 				+'<img src="'+data[i].url+'" alt="'+data[i].title+'">'
 				+'<div><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span> Edit</button>'
 				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span> Delete</button><div>'
 				+'<p>'+data[i].description+'</p>'
-				+'</div>'
+				+'</div></li>'
 			);
 		}
 	}
