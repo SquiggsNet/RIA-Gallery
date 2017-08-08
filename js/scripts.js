@@ -5,9 +5,9 @@ $(document).ready(function() {
 		$("#info").html("Add New Image"+
 			"<form action='' method='post'>"+
 			"<label>Title:</label>"+
-			"<input id='noteTitleInput' name='title' type='text' placeholder='Image Title'>"+
+			"<input id='noteTitleInput' name='title' type='text' placeholder='Image Title'><br/>"+
 			"<label>URL:</label>"+
-			"<input id='noteUrlInput' name='url' type='text' placeholder='Image Url'>"+
+			"<input id='noteUrlInput' name='url' type='text' placeholder='Image Url'><br/>"+
 			"<label>Description:</label>"+
 			"<input id='noteDescriptionInput' name='description' type='text' placeholder='Image Description'>"+
 			"</form>");
@@ -35,9 +35,9 @@ $(document).ready(function() {
 					}
 
 					var saveData = '{'
-							+'"title": "'+newTitle+'",'
-							+'"url": "'+newUrl+'",'
-							+'"description": "'+newDescription+'"}';
+						+'"title":"'+newTitle+'",'
+						+'"url":"'+newUrl+'",'
+						+'"description":"'+newDescription+'"}';
 					performAjaxSaveNew(saveData);
 					$( this ).dialog( "close" );
 				},
@@ -70,7 +70,7 @@ function performAjaxSaveNew(saveData){
 		url: "http://localhost:3000/images",
 		method: "POST",
 		headers: {
-		"content-type": "application/json",
+			"content-type": "application/json",
 		},
 		data: saveData,
 		success: function(result){
@@ -102,7 +102,7 @@ function performAjaxSaveEdit(saveData, id){
 		url: "http://localhost:3000/images/"+id,
 		method: "PUT",
 		headers: {
-		"content-type": "application/json",
+			"content-type": "application/json",
 		},
 		data: saveData,
 		success: function(result){
@@ -133,30 +133,16 @@ function displayAll(data){
 	var list = $("#list");
 
 	list.empty();
-	if (data !== null){
+	if (data != null){
 		for (var i=0; i<data.length; i++){
 
 			list.append(
-<<<<<<< HEAD
-<<<<<<< HEAD
-				'<li><div class="col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
-				+'<img src="'+data[i].url+'" alt="'+data[i].title+'">'
-=======
-				'<div class="col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
-=======
-				'<div class="col-xs-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
-				+'<img class="center-block" src="'+data[i].url+'" alt="'+data[i].title+'">'
-				+'<div><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span></button>'
-				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span></button><div>'
-				+'<div class="col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
->>>>>>> 7cccfa6a390f61c32690fc06a8f9a01c2676fa17
-//				+'<img src="'+data[i].url+'" alt="'+data[i].title+'">'
-				+'<img src="'+data[i].url+'" alt="'+data[i].title+'" onclick="thumbclicked(this)" >'
->>>>>>> 07c3dabb1efc1376feb5eadf12593d92151e87f3
-				+'<div><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span> Edit</button>'
-				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span> Delete</button><div>'
-				+'<p>'+data[i].description+'</p>'
-				+'</div></li>'
+				'<div class="col-xs-12 col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
+				+'<img class="thumbnail showBig" src="'+data[i].url+'" alt="'+data[i].title+'" height="200"/>'
+				+'<div class="buttonContainer"><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span> Edit</button>'
+				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span> Delete</button></div>'
+				+'<div class="image_description"><p>'+data[i].description+'</p></div>'
+				+'</div>'
 			);
 		}
 	}
@@ -185,6 +171,10 @@ function displayAll(data){
 		var id = this.parentNode.parentNode.id;
 		performAjaxShowEdit(id);
 	});
+
+	$(".showBig").click(function () {
+		thumbClicked(this);
+	});
 }
 
 function displayEdits(data){
@@ -196,9 +186,9 @@ function displayEdits(data){
 	$("#info").html("Update Image"+
 		"<form action='' method='post'>"+
 		"<label>Title:</label>"+
-		"<input id='noteTitleInput' name='title' type='text' value='"+tite+"'>"+
+		"<input id='noteTitleInput' name='title' type='text' value='"+tite+"'><br/>"+
 		"<label>URL:</label>"+
-		"<input id='noteUrlInput' name='url' type='text' value='"+url+"'>"+
+		"<input id='noteUrlInput' name='url' type='text' value='"+url+"'><br/>"+
 		"<label>Description:</label>"+
 		"<input id='noteDescriptionInput' name='description' type='text' value='"+description+"'>"+
 		"</form>");
@@ -226,10 +216,10 @@ function displayEdits(data){
 				}
 
 				var saveData = '{'
-						+'"title": "'+newTitle+'",'
-						+'"url": "'+newUrl+'",'
-						+'"description": "'+newDescription+'",'
-						+'"id": "'+id+'"}';
+					+'"title": "'+newTitle+'",'
+					+'"url": "'+newUrl+'",'
+					+'"description": "'+newDescription+'",'
+					+'"id": "'+id+'"}';
 				performAjaxSaveEdit(saveData, id);
 				$( this ).dialog( "close" );
 			},
@@ -241,10 +231,10 @@ function displayEdits(data){
 }
 
 $(document).ajaxStart(function(){
-    $("#loader").show();
+	$("#loader").show();
 });
 
 $(document).ajaxStop(function(){
-    $("#loader").hide();
+	$("#loader").hide();
 	$("#list").slideDown();
 });
