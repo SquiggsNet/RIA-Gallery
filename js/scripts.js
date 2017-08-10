@@ -50,11 +50,13 @@ $(document).ready(function() {
 });
 
 function performAjaxAll(){
-	var getUrl = "http://localhost:3000/images";
+	var getUrl = "https://imagegallery-3fb62.firebaseio.com/images.json";
 
 	$.ajax({
 		url: getUrl,
-		method: "GET",
+		type: "GET",
+		dataType:"json",
+		headers: {"Access-Control-Allow-Headers": "x-requested-with"},
 		success: function(result){
 			displayAll(result);
 		},
@@ -67,7 +69,7 @@ function performAjaxAll(){
 
 function performAjaxSaveNew(saveData){
 	$.ajax({
-		url: "http://localhost:3000/images",
+		url: "https://imagegallery-3fb62.firebaseio.com/images.json",
 		method: "POST",
 		headers: {
 			"content-type": "application/json",
@@ -85,10 +87,10 @@ function performAjaxSaveNew(saveData){
 
 function performAjaxShowEdit(id){
 	$.ajax({
-		url: "http://localhost:3000/images/"+id,
-		method: "GET",
+		url: "https://imagegallery-3fb62.firebaseio.com/images/"+id+".json",
+		type: "GET",
 		success: function(result){
-			displayEdits(result);
+			displayEdits(result, id);
 		},
 		error: function(err){
 			$("#info").html("Error calling Edit Information");
@@ -99,11 +101,8 @@ function performAjaxShowEdit(id){
 
 function performAjaxSaveEdit(saveData, id){
 	$.ajax({
-		url: "http://localhost:3000/images/"+id,
-		method: "PUT",
-		headers: {
-			"content-type": "application/json",
-		},
+		url: "https://imagegallery-3fb62.firebaseio.com/images/"+id+".json",
+		type: "PUT",
 		data: saveData,
 		success: function(result){
 			performAjaxAll();
@@ -117,7 +116,7 @@ function performAjaxSaveEdit(saveData, id){
 
 function performAjaxDelete(id){
 	$.ajax({
-		url: "http://localhost:3000/images/"+id,
+		url: "https://imagegallery-3fb62.firebaseio.com/images/"+id+".json",
 		method: "DELETE",
 		success: function(result){
 			performAjaxAll();
@@ -134,14 +133,14 @@ function displayAll(data){
 
 	list.empty();
 	if (data != null){
-		for (var i=0; i<data.length; i++){
-
+		for (var i=0; i<Object.keys(data).length; i++){
+			var obj = Object.keys(data)[i];
 			list.append(
-				'<div class="col-xs-12 col-md-3" id="'+data[i].id+'"><h3>'+data[i].title+'</h3>'
-				+'<img class="thumbnail showBig" src="'+data[i].url+'" alt="'+data[i].title+'" height="200"/>'
+				'<div class="col-xs-12 col-md-3" id="'+obj+'"><h3>'+data[obj].title+'</h3>'
+				+'<img class="thumbnail showBig" src="'+data[obj].url+'" alt="'+data[obj].title+'" height="200"/>'
 				+'<div class="buttonContainer"><button type="button" class="btn btn-warning edit" ><span class="glyphicon glyphicon-pencil"></span> Edit</button>'
 				+'<button type="button" class="btn btn-danger pull-right delete" ><span class="glyphicon glyphicon-trash"></span> Delete</button></div>'
-				+'<div class="image_description"><p>'+data[i].description+'</p></div>'
+				+'<div class="image_description"><p>'+data[obj].description+'</p></div>'
 				+'</div>'
 			);
 		}
@@ -177,11 +176,10 @@ function displayAll(data){
 	});
 }
 
-function displayEdits(data){
+function displayEdits(data, id){
 	var tite = data.title;
 	var url = data.url;
 	var description = data.description;
-	var id = data.id;
 
 	$("#info").html("Update Image"+
 		"<form action='' method='post'>"+
@@ -218,8 +216,7 @@ function displayEdits(data){
 				var saveData = '{'
 					+'"title": "'+newTitle+'",'
 					+'"url": "'+newUrl+'",'
-					+'"description": "'+newDescription+'",'
-					+'"id": "'+id+'"}';
+					+'"description": "'+newDescription+'"}';
 				performAjaxSaveEdit(saveData, id);
 				$( this ).dialog( "close" );
 			},
